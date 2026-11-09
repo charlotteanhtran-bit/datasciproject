@@ -13,11 +13,11 @@ This is a binary classification exercise. It does not predict a future price lev
 1. Download and inspect ten years of daily data from Yahoo Finance with yfinance.
 2. Explore the price history, missing values, distributions and outliers.
 3. Engineer open-close, low-high and quarter-end features; define the next-day direction target.
-4. Split chronologically, using the latest 10% as a holdout.
+4. Split chronologically: oldest 80% for training, next 10% for model selection, and latest 10% for final testing.
 5. Compare Logistic Regression, polynomial SVC and XGBoost.
 6. Evaluate ROC-AUC, accuracy, balanced accuracy, precision, recall, F1 and a confusion matrix.
 
-The notebook improves on a naive random split by preserving time order and fitting preprocessing only on training data. It also removes the final row, whose next-day target is unknown, rather than labeling it as a down day.
+The notebook preserves time order, fits preprocessing only on training data, and uses a separate final test after model selection. It also removes the final row, whose next-day target is unknown, rather than labeling it as a down day.
 
 ## Run
 
@@ -28,6 +28,10 @@ pip install -r requirements.txt
 ```
 
 The notebook downloads data at runtime. Yahoo Finance data can change and may be unavailable temporarily.
+
+## Latest executed result
+
+The notebook run downloaded 2,514 NVDA trading days (7 November 2016 to 6 November 2026). Polynomial SVC was selected on the validation period. On the separate final test period (5 November 2025 to 5 November 2026), ROC-AUC was 0.508 and accuracy was 0.500, matching the majority-class baseline at 0.500. This experiment does not show reliable predictive power from these features.
 
 ## Limitations
 
